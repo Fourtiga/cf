@@ -86,10 +86,23 @@ async function createBrowser(proxyServer = null) {
     connectOption: { defaultViewport: null },
     disableXvfb: true,
     customConfig: {
-      chromePath: process.env.CHROME_PATH || '/usr/bin/google-chrome'
+      chromePath: process.env.CHROME_PATH || '/usr/bin/google-chrome',
+      chromeFlags: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage'
+      ]
     }
   };
-  if (proxyServer) connectOptions.args = [`--proxy-server=${proxyServer}`];
+
+  if (proxyServer) {
+    connectOptions.args = [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      `--proxy-server=${proxyServer}`
+    ];
+  }
 
   const { browser } = await connect(connectOptions);
   const [page] = await browser.pages();
