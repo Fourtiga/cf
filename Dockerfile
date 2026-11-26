@@ -20,7 +20,7 @@ COPY . .
 ENV CHROME_PATH=/usr/bin/google-chrome
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
-EXPOSE 7860
+EXPOSE 8080
 
 CMD rm -f /tmp/.X99-lock && \
     Xvfb :99 -screen 0 1024x768x24 & \
